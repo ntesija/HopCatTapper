@@ -13,7 +13,7 @@ First install the requirements by running:
 
 Then run the program with:
 
-`python scraper.py`
+`python tapper.py`
 
 
 
