@@ -29,7 +29,7 @@ for link in soup.find_all('div', 'view-order-beers'):
 	currentType = beers[1]
 	
 	#Create a radom color for the spreadsheet
-	randomHex = lambda: random.randint(0,255)
+	randomHex = lambda: random.randint(100,255)
 	currentColor = '#%02X%02X%02X' % (randomHex(),randomHex(),randomHex())
 	
 	#Beer information is 8 indicies apart

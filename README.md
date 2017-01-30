@@ -2,6 +2,8 @@
 
 The HopCat Tapper is used to find out how to get the most bang for your buck at HopCat. As a college student, I wanted to make a program that helped users living on a budget find a way to get the most out of their beers.
 
+**Note:** *This only checks for beers on tap, no bottles currently*
+
 **PLEASE DRINK RESPONSIBLY**
 
 ## Getting Started
@@ -37,5 +39,5 @@ Filename must not be blank, any whitespace in the filename will be removed
 
 ## Output
 If everything works properly, you should have an Excel document in the project folder with the name you gave it.
-The top-most beer will be the most alcoholic for the amount you will pay.
+The top-most beer will be have the most alcohol for the amount you will pay.
 The `Type` column will be what type of beer it is.
