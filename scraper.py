@@ -1,8 +1,8 @@
 from bs4 import BeautifulSoup
-import urllib2
+import urllib2, random
 import xlsxwriter
 
-#beerData = [ [name, price, ABV, Volume, type] ]
+#beerData = [ [name, price, ABV, Volume, type, color] ]
 beerData = []
 
 response = urllib2.urlopen('https://hopcat.com/beer/ann-arbor')
@@ -11,13 +11,14 @@ html = response.read()
 soup = BeautifulSoup(html, 'html.parser')
 
 currentType = ''
+currentColor = ''
 for link in soup.find_all('div', 'view-order-beers'):
-	#beers = BeautifulSoup(link, 'html.parser')
 	beers = link.get_text()
 	beers = beers.splitlines()
+
 	currentType = beers[1]
-	print currentType
-	print beers
+	randomHex = lambda: random.randint(0,255)
+	currentColor = '#%02X%02X%02X' % (randomHex(),randomHex(),randomHex())
 	for i in range (0, len(beers) / 8):
 		ind = i * 8
 		namePrice = beers[ind + 3].split(u'\u2013')
@@ -33,7 +34,7 @@ for link in soup.find_all('div', 'view-order-beers'):
 		else:
 			volume = volString[1].strip()
 			
-		beerData.append([name, float(price), float(ABV), float(volume), currentType])
+		beerData.append([name, float(price), float(ABV), float(volume), currentType, currentColor])
 		
 
 
@@ -49,8 +50,9 @@ worksheet.write('E1', 'Volume')
 worksheet.write('F1', 'Alcohol Amount per Price')
 
 for i in range (0, len(beerData)):
-	rowNum = str(i + 1)
-	worksheet.write('A' + rowNum, beerData[i][4])
+	rowNum = str(i + 2)
+	format = workbook.add_format({'bg_color': beerData[i][5]})
+	worksheet.write('A' + rowNum, beerData[i][4], format)
 	worksheet.write('B' + rowNum, beerData[i][0])
 	worksheet.write('C' + rowNum, beerData[i][1])
 	worksheet.write('D' + rowNum, beerData[i][2])
