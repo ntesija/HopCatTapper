@@ -1,8 +1,8 @@
 from bs4 import BeautifulSoup
 import urllib2, random, xlsxwriter
 
-print "\nHopCat Tapper created by Nicholas Tesija\n"
-print "For location formats please visit https://hopcat.com and choose a location. \nThe string following 'hopcat.com' will be submitted below\n"
+print ("\nHopCat Tapper created by Nicholas Tesija\n")
+print ("For location formats please visit https://hopcat.com and choose a location. \nThe string following 'hopcat.com' will be submitted below\n")
 
 location = raw_input("Please enter a location (ex. ann-arbor, east-lansing): ")
 
@@ -12,7 +12,7 @@ while gettingFilename:
 	if len(fileName) > 0:
 		fileName = "".join(fileName.split())
 		break
-	print "\nFilename cannot be blank\n"
+	print ("\nFilename cannot be blank\n")
 
 #beerData = [ [name, price, ABV, Volume, type, color (for chart)] ]
 beerData = []
@@ -87,4 +87,4 @@ for i in range (0, len(beerData)):
 	worksheet.write('F' + rowNum, beerData[i][6])
 
 workbook.close()
-print "Scraping Complete, workbook saved as {}.xlsx".format(fileName)
+print ("Scraping Complete, workbook saved as {}.xlsx".format(fileName))
