@@ -9,11 +9,11 @@ The HopCat Tapper is used to find out how to get the most bang for your buck at 
 ## Getting Started
 First install the requirements by running:
 
-`sudo pip install -r requirements.txt`
+`sudo pip3 install -r requirements.txt`
 
 Then run the program with:
 
-`python tapper.py`
+`python3 tapper.py`
 
 
 

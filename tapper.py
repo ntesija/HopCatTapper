@@ -1,14 +1,14 @@
 from bs4 import BeautifulSoup
-import urllib2, random, xlsxwriter
+import urllib3, random, xlsxwriter, math
 
 print ("\nHopCat Tapper created by Nicholas Tesija\n")
 print ("For location formats please visit https://hopcat.com and choose a location. \nThe string following 'hopcat.com' will be submitted below\n")
 
-location = raw_input("Please enter a location (ex. ann-arbor, east-lansing): ")
+location = input("Please enter a location (ex. ann-arbor, east-lansing): ")
 
 gettingFilename = True
 while gettingFilename:
-	fileName = raw_input("Please enter a filename for the spreadsheet: ")
+	fileName = input("Please enter a filename for the spreadsheet: ")
 	if len(fileName) > 0:
 		fileName = "".join(fileName.split())
 		break
@@ -17,13 +17,15 @@ while gettingFilename:
 #beerData = [ [name, price, ABV, Volume, type, color (for chart)] ]
 beerData = []
 
-response = urllib2.urlopen('https://hopcat.com/beer/{}'.format(location))
-html = response.read()
+http = urllib3.PoolManager()
+response = http.request('GET', 'https://hopcat.com/beer/{}'.format(location))
+html = response.data
 
 soup = BeautifulSoup(html, 'html.parser')
 
 for link in soup.find_all('div', 'view-order-beers'):
 	beers = link.get_text()
+	print(beers)
 	beers = beers.splitlines()
 
 	currentType = beers[1]
@@ -33,7 +35,7 @@ for link in soup.find_all('div', 'view-order-beers'):
 	currentColor = '#%02X%02X%02X' % (randomHex(),randomHex(),randomHex())
 	
 	#Beer information is 8 indicies apart
-	for i in range (0, len(beers) / 8):
+	for i in range (0, math.floor(len(beers) / 8)):
 		#Starting index for beer information
 		ind = i * 8
 		
