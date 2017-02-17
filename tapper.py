@@ -25,7 +25,6 @@ soup = BeautifulSoup(html, 'html.parser')
 
 for link in soup.find_all('div', 'view-order-beers'):
 	beers = link.get_text()
-	print(beers)
 	beers = beers.splitlines()
 
 	currentType = beers[1]
