@@ -41,11 +41,18 @@ for link in soup.find_all('div', 'view-order-beers'):
 		#Beer Name and Price are on same line
 		namePrice = beers[ind + 3].split(u'\u2013')
 		name = namePrice[0].strip()
+
+		if(len(name) == 0):
+			continue
+
 		price = float(namePrice[1].strip().replace('$', '').replace('%', ''))
-		
+
 		ABV = beers[ind + 6].split()
-		ABV = float(ABV[0].strip().replace('(', '').replace(')', '').replace('%', '').replace(',', '.'))
-		
+		#To fix situation where "( %5.0)"
+		ABV_ind = 0 if len(ABV[0]) > 1 else 1
+		ABV = (ABV[ABV_ind].strip().replace('(', '').replace(')', '').replace('%', '').replace(',', '.'))
+		ABV = float(ABV)
+
 		volString = beers[ind + 9].split()
 		volume = 0
 		try:
