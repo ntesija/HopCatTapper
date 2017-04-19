@@ -1,2 +1,5 @@
 bs4
 xlsxwriter
+urllib3[secure]
+certifi
+Flask

@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import urllib3, random, xlsxwriter, math
+import urllib3, random, xlsxwriter, math, certifi
 
 print ("\nHopCat Tapper created by Nicholas Tesija\n")
 print ("For location formats please visit https://hopcat.com and choose a location. \nThe string following 'hopcat.com' will be submitted below\n")
@@ -17,7 +17,9 @@ while gettingFilename:
 #beerData = [ [name, price, ABV, Volume, type, color (for chart)] ]
 beerData = []
 
-http = urllib3.PoolManager()
+http = urllib3.PoolManager(
+	cert_reqs='CERT_REQUIRED',
+	ca_certs=certifi.where())
 response = http.request('GET', 'https://hopcat.com/beer/{}'.format(location))
 html = response.data
 
