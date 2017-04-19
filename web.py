@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from tapperWeb import getTapperData
 app = Flask(__name__)
 
@@ -8,7 +8,7 @@ def home():
 
 @app.route("/ann-arbor")
 def annArbor():
-    return getTapperData("ann-arbor")
+    return jsonify( city=getTapperData("ann-arbor"))
 
 if __name__ == "__main__":
     app.run(debug=True)
