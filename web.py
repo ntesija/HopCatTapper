@@ -1,14 +1,14 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from tapperWeb import getTapperData
 app = Flask(__name__)
 
-@app.route("/")
-def home():
-    return "home"
+@app.route("/list/<location>")
+def home(location):
+    return render_template("beer-list.html", location=location)
 
-@app.route("/ann-arbor")
-def annArbor():
-    return jsonify( city=getTapperData("ann-arbor"))
+@app.route("/api/v1/beers/<location>", methods=['GET'])
+def beers(location):
+    return jsonify(getTapperData(location))
 
 if __name__ == "__main__":
     app.run(debug=True)
