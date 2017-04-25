@@ -1,3 +1,5 @@
 {% for beer in beerList %}
-    <div>{{beer.name}}</div>
+    <div style="{{"background-color: " + beer.currentColor }}">
+        {{beer.name}} {{beer.ppv}}
+    </div>
 {% endfor %}

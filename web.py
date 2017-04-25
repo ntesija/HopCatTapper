@@ -10,5 +10,8 @@ def home(location):
 def beers(location):
     return jsonify({'data': render_template('beer-element.html', beerList=getTapperData(location))})
 
+def updateDatabase():
+    print("not implemented")
+
 if __name__ == "__main__":
     app.run(debug=True, threaded=True)
