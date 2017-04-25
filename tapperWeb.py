@@ -58,9 +58,17 @@ def getTapperData(cityName):
                 volume = 13
                 
             ppv = float(((ABV * .1) * volume) / price)
-            beerData.append([name, price, ABV, volume, currentType, currentColor, ppv])
+            beerData.append({
+                'name': name,
+                'price': price,
+                'ABV': ABV,
+                'volume': volume,
+                'currentType': currentType,
+                'currentColor': currentColor,
+                'ppv': ppv
+            })
 
-    beerData = sorted(beerData, key=lambda beer: beer[6], reverse=True)
+    beerData = sorted(beerData, key=lambda beer: beer['ppv'], reverse=True)
 
     return beerData
 
