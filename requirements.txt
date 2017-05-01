@@ -3,3 +3,4 @@ xlsxwriter
 urllib3[secure]
 certifi
 Flask
+pymongo
