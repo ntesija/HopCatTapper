@@ -1,13 +1,40 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-        <script src={{ url_for('static', filename='scripts/beer-list.js') }}></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     </head>
     <body>
-        <div class="main-content">
-            <div id="location" val={{location}} class="location">{{location}}</div>
-            <div id="beer-list"></div>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <span class="mdl-layout-title">HopCat Tapper</span>
+            <div class="mdl-layout-spacer"></div>
         </div>
+    </header>
+    <main class="mdl-layout__content">
+        <div class="page-content">
+            <div>{{location}}</div>
+            <div id="beer-list">
+
+                {% for beer in beerList %}
+                    <ul class="demo-list-item mdl-list">
+                        <li class="mdl-list__item" style="{{'background-color: ' + beer.currentColor }}">
+                            <span class="mdl-list__item-primary-content">
+                                {{beer.name}}
+                                <br />
+                                {{beer.ppv}}
+                                <br /> 
+                                {{beer.currentType}}
+                            </span>
+                        </li>
+                    </ul>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+    </div>
+        
     </body>
 </html>
