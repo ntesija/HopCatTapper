@@ -1,18 +1,23 @@
 {% extends "base.html" %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/beer-list.css') }}">
+{% endblock %}
+
 {% block title %}
     {{location}}
 {% endblock %}
 
 {% block content %}
     {% for beer in beerList %}
-        <ul class="demo-list-item mdl-list">
-            <li class="mdl-list__item" style="{{'background-color: ' + beer.currentColor }}">
+        <ul class="mdl-list">
+            <li class="mdl-list__item mdl-list__item--two-line beer-list-element" style="{{'background-color: ' + beer.currentColor }}">
                 <span class="mdl-list__item-primary-content">
-                    {{beer.name}}
+                    {{beer.name}} - ${{beer.price}}
                     <br />
-                    {{beer.ppv}}
-                    <br /> 
-                    {{beer.currentType}}
+                    PPV: {{beer.ppv|round(2, 'floor')}}
+                </span>
+                <span class="mdl-list__item-secondary-content">
+                    <span class="mdl-list__item-secondary-info">{{beer.currentType}}</span>
                 </span>
             </li>
         </ul>
