@@ -1,12 +1,15 @@
 import sys
 from flask import Flask, jsonify, render_template, url_for, abort
 from tapperWeb import getTapperData
+from bottleOpenerWeb import getBottleOpenerData
 from pymongo import MongoClient
 
 app = Flask(__name__)
 client = MongoClient()
 db = client.hopcat
-tappedLocations = [
+tappedLocations = []
+
+locations = [
 	"ann-arbor",
 	# "detroit", # Uses info from Untappd
 	"east-lansing",
@@ -36,16 +39,23 @@ def page_not_found(e):
 
 def updateDatabase():
 	print("Updating database:")
-	for location in tappedLocations:
-		print(location)
+	for location in locations:
 		try:
 			beerList = getTapperData(location)
+			try:
+				bottleList = getBottleOpenerData(location)
+				data = beerList + bottleList
+			except:
+				print ("Error getting bottle data for {}".format(location))
+				data = beerList
+			data = sorted(data, key=lambda beer: beer['ppv'], reverse=True)
 			collection = db[location]
 			collection.delete_many({})
-			collection.insert_many(beerList)
+			collection.insert_many(data)
+			tappedLocations.append(location)
 		except:
-			print("Error getting Tapper data: ", sys.exc_info()[0])
+			print("Error getting Tapper data for {}: {}".format(location, sys.exc_info()[0]))
 
 if __name__ == "__main__":
-	# updateDatabase()
+	updateDatabase()
 	app.run(debug=True, threaded=True)

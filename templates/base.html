@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.brown-amber.min.css">
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/base.css') }}">
+        <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
         {% block head %}{% endblock %}
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
         <title>{% block title %}{% endblock %} - Hopcat Tapper</title>
@@ -12,12 +13,12 @@
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
-            <span class="mdl-layout-title">HopCat Tapper</span>
-            <div class="mdl-layout-spacer"></div>
+            <img alt="logo image" src="{{ url_for('static', filename='images/logo.png') }}" width="50" height="50">
+            <span class="mdl-layout-title">HopCat Tapper - {% block locationHeader %}{% endblock %}</span>
         </div>
     </header>
     <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">Title</span>
+        <span class="mdl-layout-title">Select a City</span>
         <nav class="mdl-navigation">
             {% for location in tappedLocations %}
                 <a class="mdl-navigation__link" href="/list/{{location}}">{{location}}</a>
@@ -28,7 +29,6 @@
         <div class="page-content">
             <div id="beer-list" class="beer-list-container">
                 {% block content %}{% endblock %}
-                
             </div>
         </div>
     </main>

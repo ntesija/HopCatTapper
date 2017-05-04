@@ -7,14 +7,18 @@
     {{location}}
 {% endblock %}
 
+{% block locationHeader %}
+    {{location}}
+{% endblock %}
+
 {% block content %}
     {% for beer in beerList %}
         <ul class="mdl-list">
             <li class="mdl-list__item mdl-list__item--two-line beer-list-element" style="{{'background-color: ' + beer.currentColor }}">
                 <span class="mdl-list__item-primary-content">
-                    {{beer.name}} - ${{beer.price}}
+                    {{ loop.index }}. {{beer.name}} - ${{beer.price}} - {{beer.volume|round(2, 'floor')}} oz.
                     <br />
-                    PPV: {{beer.ppv|round(2, 'floor')}}
+                    Price Per Ounce of Alcohol: {{beer.ppv|round(2, 'floor')}}
                 </span>
                 <span class="mdl-list__item-secondary-content">
                     <span class="mdl-list__item-secondary-info">{{beer.currentType}}</span>

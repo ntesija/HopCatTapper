@@ -1,8 +1,12 @@
 {% extends "base.html" %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/404.css') }}">
+{% endblock %}
+
 {% block title %}
-    Not Found
+    City Not Found
 {% endblock %}
 
 {% block content %}
-    <h1>City Not Found</h1>
+    <center><h1>City Not Found</h1></center>
 {% endblock %}
