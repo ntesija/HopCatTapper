@@ -81,7 +81,7 @@ def getBottleOpenerData(cityName):
                 'price': price,
                 'ABV': ABV,
                 'volume': volume,
-                'currentType': currentType,
+                'currentType': currentType + " (Bottle)",
                 'currentColor': currentColor,
                 'ppv': ppv
             })

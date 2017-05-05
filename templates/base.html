@@ -26,9 +26,25 @@
         </nav>
     </div>
     <main class="mdl-layout__content">
-        <div class="page-content">
-            <div id="beer-list" class="beer-list-container">
-                {% block content %}{% endblock %}
+        <div class="page-content mdl-grid">
+            <div class="mdl-cell mdl-cell--3-col">
+                {% block typeList %}{% endblock %}
+            </div>
+            <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
+                <div id="beer-list" class="beer-list-container">
+                    Sort by:
+                    <a href="/list/{{location}}" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                        PPOA
+                    </a>
+                    <a href="/list/{{location}}?sort=type" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                        Type
+                    </a>
+
+                    <ul class="mdl-list">
+                        {% block content %}
+                        {% endblock %}
+                    </ul>
+                </div>
             </div>
         </div>
     </main>
