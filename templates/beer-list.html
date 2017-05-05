@@ -27,7 +27,6 @@
     {% endif %}
 {% endblock %}
 
-
 {% block content %}
     {% for beer in beerList %}
         <li class="mdl-list__item mdl-list__item--two-line beer-list-element" style="{{'background-color: ' + beer.currentColor }}" id={{loop.index}}>
