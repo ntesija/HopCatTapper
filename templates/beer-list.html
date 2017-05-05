@@ -15,13 +15,13 @@
     {% if types|length > 0 %}
         <ul class="mdl-list beer-type-container mdl-layout--large-screen-only">
             {% for type in types %}
-                <li class="mdl-list__item">
-                    <a href="#{{type[1]}}">
+                <a href="#{{type[1]}}" class="type-link">
+                    <li class="mdl-list__item type-element">
                         <span class="mdl-list__item-primary-content">
                             {{ type[0] }}
                         </span>
-                    </a>
-                </li>
+                    </li>
+                </a>
             {% endfor %}
         </ul>
     {% endif %}
