@@ -1,43 +1,57 @@
 {% extends "base.html" %}
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/beer-list.css') }}">
+    <script src="{{ url_for('static', filename='scripts/beer-list.js') }}"></script>
 {% endblock %}
 
 {% block title %}
-    {{location}}
+     - {{location}}
 {% endblock %}
 
 {% block locationHeader %}
-    {{location}}
-{% endblock %}
-
-{% block typeList %}
-    {% if types|length > 0 %}
-        <ul class="mdl-list beer-type-container mdl-layout--large-screen-only">
-            {% for type in types %}
-                <a href="#{{type[1]}}" class="type-link">
-                    <li class="mdl-list__item type-element">
-                        <span class="mdl-list__item-primary-content">
-                            {{ type[0] }}
-                        </span>
-                    </li>
-                </a>
-            {% endfor %}
-        </ul>
-    {% endif %}
+     - {{location}}
 {% endblock %}
 
 {% block content %}
-    {% for beer in beerList %}
-        <li class="mdl-list__item mdl-list__item--two-line beer-list-element" style="{{'background-color: ' + beer.currentColor }}" id={{loop.index}}>
-            <span class="mdl-list__item-primary-content">
-                {% if notSorted %}{{ loop.index }}. {% endif %}{{beer.name}} - ${{beer.price}} - {{beer.volume|round(2, 'floor')}} oz.
-                <br />
-                Price Per Ounce of Alcohol: {{beer.ppv|round(2, 'floor')}}
-            </span>
-            <span class="mdl-list__item-secondary-content">
-                <span class="mdl-list__item-secondary-info">{{beer.currentType}}</span>
-            </span>
-        </li>
-    {% endfor %}
+    <div class="mdl-cell mdl-cell--3-col">
+        {% if types|length > 0 %}
+            <ul class="mdl-list beer-type-container mdl-layout--large-screen-only">
+                {% for type in types %}
+                    <a href="#{{type[1]}}" class="type-link">
+                        <li class="mdl-list__item type-element">
+                            <span class="mdl-list__item-primary-content">
+                                {{ type[0] }}
+                            </span>
+                        </li>
+                    </a>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
+        <div id="beer-list" class="beer-list-container">
+            Sort by:
+            <button onclick="viewList('{{location}}')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                PPOA
+            </button>
+            <button onclick="viewSortedList('{{location}}')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                Type
+            </button>
+
+            <ul class="mdl-list">
+                {% for beer in beerList %}
+                    <li class="mdl-list__item mdl-list__item--two-line beer-list-element" style="{{'background-color: ' + beer.currentColor }}" id={{loop.index}}>
+                        <span class="mdl-list__item-primary-content" {% if beer.currentType == "Porters & Stouts" or beer.currentType == "Mower" %}style="color: white"{% endif %}>
+                            {% if notSorted %}{{ loop.index }}. {% endif %}{{beer.name}} - ${{beer.price}} - {{beer.volume|round(2, 'floor')}} oz. - {{beer.ABV}} ABV
+                            <br />
+                            Price Per Ounce of Alcohol: {{beer.ppv|round(2, 'floor')}}
+                        </span>
+                        <span class="mdl-list__item-secondary-content">
+                            <span class="mdl-list__item-secondary-info" {% if beer.currentType == "Porters & Stouts" or beer.currentType == "Mower" %}style="color: white"{% endif %}>{{beer.currentType}}</span>
+                        </span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}

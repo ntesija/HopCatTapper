@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import urllib3, random, math, certifi
+from globals import colors
 
 def getBottleOpenerData(cityName):
     location = cityName
@@ -20,9 +21,14 @@ def getBottleOpenerData(cityName):
         beers = beers.splitlines()
 
         currentType = beers[1]
-        #Create a radom color for the spreadsheet
-        randomHex = lambda: random.randint(100,255)
-        currentColor = '#%02X%02X%02X' % (randomHex(),randomHex(),randomHex())
+        currentColor = ""
+        if currentType in colors:
+            currentColor = colors[currentType]
+        else:
+            #Create a radom color for the spreadsheet
+            randomHex = lambda: random.randint(100,255)
+            currentColor = '#%02X%02X%02X' % (randomHex(),randomHex(),randomHex())
+        
         
         #Beer information is 8 indicies apart
         for i in range (0, math.floor(len(beers) / 8)):
@@ -81,7 +87,7 @@ def getBottleOpenerData(cityName):
                 'price': price,
                 'ABV': ABV,
                 'volume': volume,
-                'currentType': currentType + " (Bottle)",
+                'currentType': currentType,
                 'currentColor': currentColor,
                 'ppv': ppv
             })
