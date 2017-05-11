@@ -2,7 +2,7 @@ from globals import tappedLocations, locations
 from tapperWeb import getTapperData
 from bottleOpenerWeb import getBottleOpenerData
 from pymongo import MongoClient
-import sys, time
+import sys, time, datetime
 
 client = MongoClient()
 db = client.hopcat
@@ -10,7 +10,7 @@ db = client.hopcat
 updateTime = 86400.0 # 1 Day
 
 def updateDatabase():
-	print("Updating database:")
+	output = ""
 	for location in locations:
 		try:
 			beerList = getTapperData(location)
@@ -18,7 +18,7 @@ def updateDatabase():
 				bottleList = getBottleOpenerData(location)
 				data = beerList + bottleList
 			except:
-				print ("Error getting bottle data for {}".format(location))
+				output += "Error getting bottle data for {}\n".format(location)
 				data = beerList
 			data = sorted(data, key=lambda beer: beer['ppv'], reverse=True)
 			collection = db[location]
@@ -27,10 +27,14 @@ def updateDatabase():
 			if location not in tappedLocations:
 				tappedLocations.append(location)
 		except:
-			print("Error getting Tapper data for {}: {}".format(location, sys.exc_info()[0]))
+			output += "Error getting Tapper data for {}: {}\n".format(location, sys.exc_info()[0])
 			if location in tappedLocations:
 				tappedLocations.remove(location)
-
+	if not output == "":
+		logName = str(datetime.datetime.now().day) + "-" + str(datetime.datetime.now().month) + "-" + str(datetime.datetime.now().year) + ".log"
+		log = open(logName, 'w')
+		log.write(output)
+		log.close()
 def updateLoop():
 	startTime = time.time()
 	while True:

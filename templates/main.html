@@ -6,13 +6,16 @@
 
 {% block content %}
 	<div class="welcome-msg">
-		<center><h2>Welcome! Please select a Tapped Location!</h2></center>
+		<center>
+			<h2>Welcome! Please select a Tapped Location!</h2>
+			<h4>This website exists to help people find the most value for their dollar (Price Per Ounce of Alcohol) at HopCat locations. I created this since I love HopCat, but found that I often didn't want to spend too much money there. Please drink responsibly.</h4>
+		</center>
+		<div class="mdl-grid">
+		    {% for location in tappedLocations %}
+	  			<div class="mdl-cell mdl-cell--2-col location-element" onclick="viewList('{{location}}')">
+		        	<center><span class="location-text">{{location}}</span></center>
+		        </div>
+		    {% endfor %}
+	    </div>
 	</div>
-	<div class="mdl-grid">
-	    {% for location in tappedLocations %}
-  			<div class="mdl-cell mdl-cell--2-col location-element" onclick="viewList('{{location}}')">
-	        	<center><span class="location-text">{{location}}</span></center>
-	        </div>
-	    {% endfor %}
-    </div>
 {% endblock %}

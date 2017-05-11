@@ -34,8 +34,13 @@ def list(location):
 	return render_template("beer-list.html", beerList=data, location=location, tappedLocations=tappedLocations, notSorted=notSorted, types=types)
 
 @app.errorhandler(404)
-def page_not_found(e):
+def pageNotFound(e):
 	return render_template("404.html", tappedLocations=tappedLocations), 404
+
+@app.errorhandler(500)
+def internalError(e):
+	return render_template("500.html", tappedLocations=tappedLocations), 500
+
 
 if __name__ == "__main__":
 	updateThread = threading.Thread(target=updateLoop).start()

@@ -1,3 +1,7 @@
 .logo {
 	padding-right: 10px;
 }
+
+.mdl-mini-footer {
+	overflow: hidden;
+}

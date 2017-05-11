@@ -10,28 +10,35 @@
         <title>Hopcat Tapper{% block title %}{% endblock %}</title>
     </head>
     <body>
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <header class="mdl-layout__header">
-        <div class="mdl-layout__header-row">
-            <a href="/"><img class="logo" alt="logo image" src="{{ url_for('static', filename='images/logo.png') }}" width="50" height="50"></a>
-            <span class="mdl-layout-title">HopCat Tapper{% block locationHeader %}{% endblock %}</span>
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <header class="mdl-layout__header">
+                <div class="mdl-layout__header-row">
+                    <a href="/"><img class="logo" alt="logo image" src="{{ url_for('static', filename='images/logo.png') }}" width="50" height="50"></a>
+                    <span class="mdl-layout-title">HopCat Tapper{% block locationHeader %}{% endblock %}</span>
+                </div>
+            </header>
+            <div class="mdl-layout__drawer">
+                <span class="mdl-layout-title">Select a City</span>
+                <nav class="mdl-navigation">
+                    {% for location in tappedLocations %}
+                        <a class="mdl-navigation__link" href="/list/{{location}}">{{location}}</a>
+                    {% endfor %}
+                </nav>
+            </div>
+            <main class="mdl-layout__content">
+                <div class="page-content mdl-grid">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </main>
+            <footer class="mdl-mini-footer">
+                <div class="mdl-mini-footer__left-section">
+                    <div class="mdl-logo">HopCat Tapper by Nicholas Tesija</div>
+                    <ul class="mdl-mini-footer__link-list">
+                        <li><a href="https://ntesija.github.io">Personal Website</a></li>
+                    </ul>
+                </div>
+            </footer>
         </div>
-    </header>
-    <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">Select a City</span>
-        <nav class="mdl-navigation">
-            {% for location in tappedLocations %}
-                <a class="mdl-navigation__link" href="/list/{{location}}">{{location}}</a>
-            {% endfor %}
-        </nav>
-    </div>
-    <main class="mdl-layout__content">
-        <div class="page-content mdl-grid">
-            {% block content %}
-            {% endblock %}
-        </div>
-    </main>
-    </div>
-        
     </body>
 </html>
